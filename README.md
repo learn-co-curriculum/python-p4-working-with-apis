@@ -2,8 +2,8 @@
 
 ## Learning Goals
 
-- Understand why programmers need to work with APIs
-- Learn some of the basic ways in which programmers work with APIs
+- Understand why programmers need to work with APIs.
+- Learn some of the basic ways in which programmers work with APIs.
 
 ***
 
@@ -12,7 +12,6 @@
 - **Request**: an attempt by one machine to contact another over the internet.
 - **Client**: an application or machine that accesses services being provided by a server through the internet.
 - **Web Server**: a combination of software and hardware that uses Hypertext Transfer Protocol (HTTP) and other protocols to respond to requests made over the internet.
-- **More vocab to come**
 
 ***
 
@@ -149,7 +148,7 @@ Copy and paste the following code into our GetPrograms class:
 ```py
 def program_school(self):
     # we use the JSON library to parse the API response into nicely formatted JSON
-        programs_list = []
+    programs_list = []
         programs = json.loads(self.get_programs())
         for program in programs:
             programs_list.append(program["agency"])
@@ -239,6 +238,10 @@ JSON from any provided URL!
 
 ## Resources
 
-- [requests][`requests`]
+- [GET - Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET)
 
-[`requests`]: https://requests.readthedocs.io/en/latest/
+- [HTTP methods - Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+
+- [requests](https://requests.readthedocs.io/en/latest/)
+
+- [Python JSON](https://docs.python.org/3/library/json.html)

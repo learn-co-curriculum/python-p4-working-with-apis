@@ -19,6 +19,7 @@ class GetPrograms:
             programs_list.append(program["agency"])
 
         return programs_list
+
 programs = GetPrograms()
 programs_schools = programs.program_school()
 
