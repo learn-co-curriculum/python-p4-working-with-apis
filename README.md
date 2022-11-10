@@ -10,8 +10,11 @@
 ## Key Vocab
 
 - **Request**: an attempt by one machine to contact another over the internet.
-- **Client**: an application or machine that accesses services being provided by a server through the internet.
-- **Web Server**: a combination of software and hardware that uses Hypertext Transfer Protocol (HTTP) and other protocols to respond to requests made over the internet.
+- **Client**: an application or machine that accesses services being provided by
+  a server through the internet.
+- **Web Server**: a combination of software and hardware that uses Hypertext
+  Transfer Protocol (HTTP) and other protocols to respond to requests made over
+  the internet.
 
 ***
 
@@ -201,6 +204,8 @@ it was formatted properly as JSON and iterating over that JSON to retrieve the
 name of the school hosting each after-school program. That was a lot of work! I
 wonder if there is an easier way to work with popular APIs...
 
+***
+
 ## Conclusion
 
 To recap: APIs generally either provide a user with data or added functionality.
@@ -239,9 +244,6 @@ JSON from any provided URL!
 ## Resources
 
 - [GET - Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET)
-
 - [HTTP methods - Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
-
 - [requests](https://requests.readthedocs.io/en/latest/)
-
 - [Python JSON](https://docs.python.org/3/library/json.html)
