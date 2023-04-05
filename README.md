@@ -151,7 +151,7 @@ Copy and paste the following code into our GetPrograms class:
 ```py
 def program_school(self):
     # we use the JSON library to parse the API response into nicely formatted JSON
-    programs_list = []
+        programs_list = []
         programs = json.loads(self.get_programs())
         for program in programs:
             programs_list.append(program["agency"])
@@ -162,7 +162,7 @@ def program_school(self):
 At the bottom of the file, comment out:
 
 ```py
-programs = GetPrograms.get_programs()
+programs = GetPrograms().get_programs()
 print(programs)
 ```
 
