@@ -124,7 +124,7 @@ class GetPrograms:
     return response.content
 
 
-programs = GetPrograms.get_programs()
+programs = GetPrograms().get_programs()
 print(programs)
 
 ```
@@ -229,6 +229,7 @@ def get_programs(self):
 
     response = requests.get(URL)
     return response.content
+
 ```
 
 But we could easily adapt this code to be flexible and accept _any_ URL we pass
