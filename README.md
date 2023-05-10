@@ -117,14 +117,14 @@ import json
 
 class GetPrograms:
 
-  def get_programs():
+  def get_programs(self):
     URL = "http://data.cityofnewyork.us/resource/uvks-tn5n.json"
 
     response = requests.get(URL)
     return response.content
 
 
-programs = GetPrograms.get_programs()
+programs = GetPrograms().get_programs()
 print(programs)
 
 ```
@@ -151,7 +151,7 @@ Copy and paste the following code into our GetPrograms class:
 ```py
 def program_school(self):
     # we use the JSON library to parse the API response into nicely formatted JSON
-    programs_list = []
+        programs_list = []
         programs = json.loads(self.get_programs())
         for program in programs:
             programs_list.append(program["agency"])
@@ -162,7 +162,7 @@ def program_school(self):
 At the bottom of the file, comment out:
 
 ```py
-programs = GetPrograms.get_programs()
+programs = GetPrograms().get_programs()
 print(programs)
 ```
 
@@ -229,6 +229,7 @@ def get_programs(self):
 
     response = requests.get(URL)
     return response.content
+
 ```
 
 But we could easily adapt this code to be flexible and accept _any_ URL we pass
