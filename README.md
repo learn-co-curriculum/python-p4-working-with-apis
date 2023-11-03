@@ -170,9 +170,9 @@ programs = GetPrograms().get_programs()
 print(programs)
 ```
 
-Let's `print` out a unique list of the schools. Paste in the following two lines
-right underneath where you commented out the above two lines. We will create a
-set from the resulting list of agencies to avoid printing duplicates.
+Let's `print` out a unique list of the agencies. Paste in the following two
+lines right underneath where you commented out the above two lines. We will
+create a set from the resulting list of agencies to avoid printing duplicates.
 
 ```py
 programs = GetPrograms()
