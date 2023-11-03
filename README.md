@@ -2,10 +2,9 @@
 
 ## Learning Goals
 
-- Understand why programmers need to work with APIs.
-- Learn some of the basic ways in which programmers work with APIs.
+- Learn some of the basic ways to work with APIs.
 
-***
+---
 
 ## Key Vocab
 
@@ -16,7 +15,7 @@
   Transfer Protocol (HTTP) and other protocols to respond to requests made over
   the internet.
 
-***
+---
 
 ## Define API
 
@@ -46,7 +45,7 @@ own API later on in this course. This reading seeks to introduce the topic,
 emphasize some of the benefits of getting comfortable working with APIs and
 offer a brief intro into some of the common methods of working with APIs.
 
-***
+---
 
 ## How to Work with APIs
 
@@ -70,10 +69,11 @@ we've been hired by the city to create an app that will help parents sign their
 children up for after-school activities. To connect parents to after-school
 clubs around the city, we need a data set of such clubs. Luckily for us, the
 city has collected that information and allows the public to access it via their
-Open Data API. Let's check out the documentation for their
-[after-school club data set][].
+Open Data API. Let's check out the documentation for their [after-school club
+data set][].
 
-[after-school club data set]: https://dev.socrata.com/foundry/data.cityofnewyork.us/szgz-awuh
+[after-school club data set]:
+  https://dev.socrata.com/foundry/data.cityofnewyork.us/szgz-awuh
 
 #### Finding the API Endpoint
 
@@ -91,10 +91,10 @@ Open up a new tab in your browser and paste in the following URL:
 
 The page brings you to is the desired set of data! Notice that the data is laid
 out in what looks like a big list of nested dictionaries. This is actually a
-[JSON](http://json.org/) object, which behaves just like a Python dictionary. Working
-with the JSON data returned to you by requests to an API is one of the reasons
-why we spent so much time in previous lessons learning how to manipulate and
-operate on nested hashes.
+[JSON](http://json.org/) object, which behaves just like a Python dictionary.
+Working with the JSON data returned to you by requests to an API is one of the
+reasons why we spent so much time in previous lessons learning how to manipulate
+and operate on nested hashes.
 
 **Top Tip:** Once you find the right URL for retrieving your data, test it out
 directly in your browser _before_ you try to request the data from inside your
@@ -129,27 +129,31 @@ print(programs)
 
 ```
 
-We stored our API endpoint URL in a constant at the top of our class. Then, we
-have a `get_programs` method that uses the `requests` library to send an HTTP
-request from our program. `requests` is a Python library that allows your program
-or application to send HTTP requests. We import it at the top of our file with
-the `import` statement.
+The `requests` library allows your program or application to send HTTP requests.
 
-Now, in your terminal in the directory of this lab, run `python lib/nyc_api.py`. It
-should output the JSON response from the NYC Open Data API!
+We define a ` get_programs()` method that assigns our API endpoint to a variable
+name `URL`. The method submits a request with that URL using the `get()` method
+defined in the `requests` library, and returns the content of the response.
+
+Now, in your terminal in the directory of this lab, run `python lib/nyc_api.py`.
+It should output the JSON response from the NYC Open Data API!
 
 ### Working with API Data
 
-Now that we have all of our data back from the API, we need to be able to
-collect and present it within the context of our app. Since we are basically
-pros at manipulating nested dictionaries, we shouldn't have too much trouble. Let's
-write a method, `program_school`, that just returns a list of the schools or
+Take another look at the API described at [after-school club data set]:
+https://dev.socrata.com/foundry/data.cityofnewyork.us/szgz-awuh
+
+If you scroll down to the section that lists the data fields available, you'll
+see many fields including `agency`. We'll write a new method to list this field
+for each program.
+
+Let's write a method, `program_agencies`, that just returns a list of the
 organizations that are running our after school programs.
 
 Copy and paste the following code into our GetPrograms class:
 
 ```py
-def program_school(self):
+def program_agencies(self):
     # we use the JSON library to parse the API response into nicely formatted JSON
         programs_list = []
         programs = json.loads(self.get_programs())
@@ -167,14 +171,15 @@ print(programs)
 ```
 
 Let's `print` out a unique list of the schools. Paste in the following two lines
-right underneath where you commented out the above two lines:
+right underneath where you commented out the above two lines. We will create a
+set from the resulting list of agencies to avoid printing duplicates.
 
 ```py
 programs = GetPrograms()
-programs_schools = programs.program_school()
+agencies = programs.program_agencies()
 
-for school in set(programs_schools):
-    print(school)
+for agency in set(agencies):
+    print(agency)
 
 ```
 
@@ -198,13 +203,50 @@ Greater Ridgewood Youth Council, Inc
 ...
 ```
 
-So far we've used the `requests` to send a request for data to an API
-endpoint, a URL. We've operated on the data that was returned to us, making sure
-it was formatted properly as JSON and iterating over that JSON to retrieve the
-name of the school hosting each after-school program. That was a lot of work! I
-wonder if there is an easier way to work with popular APIs...
+So far we've used the `requests` to send a request for data to an API endpoint,
+a URL. We've operated on the data that was returned to us, making sure it was
+formatted properly as JSON and iterating over that JSON to retrieve the name of
+the school hosting each after-school program. That was a lot of work! I wonder
+if there is an easier way to work with popular APIs...
 
-***
+---
+
+## Solution
+
+The final version of `nyc_api.py`:
+
+```py
+
+import requests
+import json
+
+class GetPrograms:
+
+  def get_programs(self):
+    URL = "http://data.cityofnewyork.us/resource/uvks-tn5n.json"
+
+    response = requests.get(URL)
+    return response.content
+
+  def program_agencies(self):
+    # we use the JSON library to parse the API response into nicely formatted JSON
+        programs_list = []
+        programs = json.loads(self.get_programs())
+        for program in programs:
+            programs_list.append(program["agency"])
+
+        return programs_list
+
+#programs = GetPrograms().get_programs()
+#print(programs)
+
+programs = GetPrograms()
+agencies = programs.program_agencies()
+
+for agency in set(agencies):
+    print(agency)
+
+```
 
 ## Conclusion
 
@@ -212,13 +254,13 @@ To recap: APIs generally either provide a user with data or added functionality.
 We can use APIs that serve data to get information for our own applications and
 projects. To get this data, we need to send a request to the URL of the API and
 know how to work with the response we receive. Many APIs serve data in JSON
-format, which needs to be parsed before we can use it. Once parsed, it becomes
-a hash we can work with and extract data from.
+format, which needs to be parsed before we can use it. Once parsed, it becomes a
+dictionary we can work with and extract data from.
 
 In our example, we were able to retrieve remote information from an API using
-the `requests` library. By putting this implementation
-inside a class, we can develop highly reusable code that lets us access all
-sorts of information remotely.
+the `requests` library. By putting this implementation inside a class, we can
+develop highly reusable code that lets us access all sorts of information
+remotely.
 
 The `GetPrograms` class used a hard-coded URL, stored as a class constant, and
 included an instance method called `get_programs`:
@@ -237,10 +279,10 @@ in using an `initialize` method and an instance variable. The `get_programs`
 method is really just getting the response body from the requested URL, so we
 could name this `get_response_body` to be more accurate. We could replace the
 custom `program_school` method with a general `load_json` method, as well.
-Instead of a specific class, we would instead have a class that retrieves
-JSON from any provided URL!
+Instead of a specific class, we would instead have a class that retrieves JSON
+from any provided URL!
 
-***
+---
 
 ## Resources
 

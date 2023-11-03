@@ -10,6 +10,5 @@ class GetPrograms:
     response = requests.get(URL)
     return response.content
 
-
 programs = GetPrograms().get_programs()
 print(programs)
