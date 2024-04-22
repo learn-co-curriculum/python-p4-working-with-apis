@@ -1,5 +1,8 @@
 # Working with APIs
 
+NOTE: The API used in this lab can't be accessed anymore. We have an updated
+lesson [here](https://github.com/learn-co-curriculum/python-p4-working-with-apis-v2).
+
 ## Learning Goals
 
 - Learn some of the basic ways to work with APIs.
